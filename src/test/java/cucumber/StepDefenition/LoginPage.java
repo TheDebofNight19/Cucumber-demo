@@ -2,6 +2,8 @@ package cucumber.StepDefenition;
 
 import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.ru.Допустим;
+import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Тогда;
 
 import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byName;
@@ -15,8 +17,7 @@ public class LoginPage {
     private SelenideElement enterButton = $(byId("login-button"));
 
 
-
-    @Допустим("Пользователь вводит логин {string} и пароль {string}")
+    @Когда("Пользователь вводит логин {string} и пароль {string}")
     public void inputUserLoginAndUserPassword(String string1, String string2) {
         loginField.clear();
         loginField.setValue(string1);
@@ -25,4 +26,8 @@ public class LoginPage {
         enterButton.click();
     }
 
+    @Тогда("Пользователь попадает на страницу ввода одноразового пароля")
+    public void assertUserIsOnOneTimePasswordPage() {
+
+    }
 }
