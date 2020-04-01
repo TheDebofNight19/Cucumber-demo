@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Cucumber-demo">
+    <test name="Cucumber-test">
+        <classes>
+            <class name ="com.github.TheDebofNight19.RunCucumberTest"/>
+            <class name ="cucumber.StepDefenition.BSPBloginTest"/>
+        </classes>
+    </test>
+
+</suite>
