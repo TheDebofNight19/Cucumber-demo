@@ -9,6 +9,7 @@ import io.cucumber.java.ru.Допустим;
 import io.cucumber.java.ru.Если;
 import io.cucumber.java.ru.Ктомуже;
 import io.cucumber.java.ru.То;
+import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -29,54 +30,72 @@ public class BaseSteps {
 
 
     @Допустим("Пользователь переходит по ссылке {string}")
+    @Step
     public void openPage(String string) {
         Selenide.open(string);
     }
 
+
     @Если("Пользователь попадает на страницу sberbank.ru")
+    @Step
     public void assertUserIsOnTargetPage() {
         Assert.assertTrue(basePage.getBasePageLogo().isDisplayed());
     }
 
+
     @То("Отображается название страницы {string}")
+    @Step
     public void assertCorrectTitle(String string) {
         Assert.assertEquals(string, Selenide.title());
     }
 
+
     @Допустим("Пользователь переходит через верхнее меню во \"Вклады\"")
+    @Step
     public void hoverOverDepositOption() {
         basePage.getDepositTab().hover();
         basePage.getDepositTabSubLink().click();
     }
 
+
     @Если("Осущестляется переход")
+    @Step
     public void getDepositPage() {
         depositsPage.getDepositPageText().isDisplayed();
     }
 
+
     @То("Название страницы {string}")
+    @Step
     public void assertUserIsOnDepositPage(String string) {
         Assert.assertEquals(string, Selenide.title());
     }
 
+
     @Допустим("Пользователь находится на странице {string}")
+    @Step
     public void checkIfUserIsOnDepositPage(String string) {
         Assert.assertEquals(string, Selenide.title());
     }
 
+
     @Если("Пользователь перешел на вкладку {string}")
+    @Step
     public void getChooseDepositTab(String string) {
         depositsPage.getChooseDeposit().click();
 
     }
 
     @То("Отображаются 4 чек-бокса и установлен чек-бокс «Онлайн»")
+    @Step
     public void assertCheckboxesAreAvailable(List<String> dataTable) {
 
         depositsPage.scanCheckboxes(dataTable);
     }
 
+
     @Ктомуже("Отображается 3 вклада")
+    @Step
     public void assertDepositOptionsAreAvailable(List<String> dataTable) {
         for (String text : dataTable) {
             Assert.assertTrue($(byText(text)).isDisplayed());
@@ -85,6 +104,7 @@ public class BaseSteps {
 
 
     @Допустим("Пользователь выбирает чек-боксы")
+    @Step
     public void markDepositTypeCheckBoxes(List<String> dataTable) {
         for (String text : dataTable) {
             $(byText(text)).click();
@@ -94,6 +114,7 @@ public class BaseSteps {
 
 
     @Если("Исчезли вклады")
+    @Step
     public void checkIfDepositTypesAreNotAvailable(List<String> dataTable) {
 
         for (String text : dataTable) {
@@ -102,8 +123,8 @@ public class BaseSteps {
         }
     }
 
-
     @То("Остался только {string}")
+    @Step
     public void checkWhichOptionIsAvailable(String string) {
         $(byText(string))
                 .shouldBe(Condition.visible);
@@ -112,6 +133,7 @@ public class BaseSteps {
 
 
     @Допустим("Пользователь нажимет на кнопку {string} вклада «Управляй»")
+    @Step
     public void userPressesControlButton(String string) {
         depositsPage.getDepositElement()
                 .find(byText(string))
@@ -120,6 +142,7 @@ public class BaseSteps {
 
 
     @Если("В новом окне открывается окно с названием {string}")
+    @Step
     public void checkIfUSerIsOnControlPage(String string) {
         Selenide.switchTo().window("«Сбербанк» - Вклад Управляй");
         Assert.assertEquals(string, Selenide.title());
@@ -128,6 +151,7 @@ public class BaseSteps {
 
 
     @То("На странице отображается надпись «Вклад Управляй»")
+    @Step
     public void checkIfUserIsOnCorrectPage(){
        depositControl.assertPage();
     }

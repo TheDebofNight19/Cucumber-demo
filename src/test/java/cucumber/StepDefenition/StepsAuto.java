@@ -5,6 +5,7 @@ import Pages.autoRu.AutoRuPage;
 import Pages.autoRu.ManufacturerPage;
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.ru.Допустим;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,25 +25,28 @@ public class StepsAuto {
     private static final Logger LOG = LoggerFactory.getLogger(StepsAuto.class);
 
     /**
-     * Этот шаг можно прописать как "предысторию" в 1.feature, но тогда падет тест - не отвечает
+     * Этот шаг можно прописать как "предысторию" в bspb.feature, но тогда падет тест - не отвечает
      * веб-драйвер браузера
      */
 
     @Допустим("Пользователь заходит на сайт auto.ru")
+    @Step
     public void openAutoRuUrl(){
         Selenide.open("https://auto.ru/");
     }
 
     @Допустим("Проверяем, что название страницы содержит текст {string}")
+    @Step
     public void getPageTitle(String title) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         Assert.assertTrue(Selenide.title().contains(title));
     }
 
 
     @Допустим("^Сохраняем количество объявлений по (.+)$")
+    @Step
     public void getCarManufacturer(String manufacturer) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         dataStorage.setManufacturerQuantity($(byText(manufacturer)).find(By.xpath("./following::div")).text());
         LOG.info(manufacturer + " : " + dataStorage.getManufacturerQuantity());
 
@@ -50,20 +54,24 @@ public class StepsAuto {
 
 
     @Допустим("^Пользователь переходит на страницу производителя (.+)$")
+    @Step
     public void switchToManufacturerPage(String manufacturer) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         $(byText(manufacturer)).click();
     }
 
 
     @Допустим("^Осуществлен переход на страницу (.+)$")
+    @Step
     public void checkIfUSerIsOnManufacturerPage(String manufacturer) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         Assert.assertTrue(Selenide.title().contains(manufacturer));
         LOG.info(Selenide.title());
     }
 
-    @Допустим("Отображается кнопка с текстом, содержащим количество объявлений по производителю автомобилей")
+    @Допустим("Отображается кнопка с текстом, " +
+            "содержащим количество объявлений по производителю автомобилей")
+    @Step
     public void findButtonWithQuantity() {
 
         /**
@@ -71,7 +79,7 @@ public class StepsAuto {
          * кнопке отображатеся динамически и может измениться в момент перехода с одной страницы на другую
          * некорректный кейс :)
          */
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         LOG.info(dataStorage.getManufacturerQuantity());
         String s = AutoRuPage.getButtonText();
         dataStorage.setManufacturerQuantityRefreshed(DataStorage.getQuantity(s));
@@ -84,8 +92,9 @@ public class StepsAuto {
 
 
     @Допустим("^Пользователь сохраняет количество объявлений (.+)$")
+    @Step
     public void saveSeriesQuantity (String series) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         dataStorage.setSeriesQuantity($(byText(series))
                 .find(By.xpath("./following::div"))
                 .text());
@@ -94,29 +103,33 @@ public class StepsAuto {
 
 
     @Допустим("Значение сохранено")
+    @Step
     public void outputSavedSeriesQuantity() {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         LOG.info(dataStorage.getSeriesQuantity());
     }
 
     @Допустим("^Пользователь переходит на страницу объявлений по (.+)$")
+    @Step
     public void goToOffersBySeriesPage(String offersPage) {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         LOG.info($(byText(offersPage)).text());
         $(byText(offersPage)).hover().click();
     }
 
     @Допустим("^Проверяем, что мы на странице (.+)$")
+    @Step
     public void assertUserIsOnOffersBySeriesPage(String offersBySeries){
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         Assert.assertTrue($(byXpath("//div[@class='ListingHead__title']"))
                 .text().contains(offersBySeries));
     }
 
 
     @Допустим("Отображается кнопка с количеством объявлений")
+    @Step
     public void checkIfButtonWithOffersIsAvailable() {
-        DataStorage.closePopUp();
+        BackgroundSteps.closePopUp();
         Assert.assertTrue($(byXpath("//span[@class='ButtonWithLoader__content']")).isDisplayed());
 
         String s = AutoRuPage.getButtonText();

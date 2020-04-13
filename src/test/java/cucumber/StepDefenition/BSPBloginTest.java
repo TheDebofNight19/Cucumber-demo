@@ -2,6 +2,7 @@ package cucumber.StepDefenition;
 
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.ru.Допустим;
+import io.qameta.allure.Step;
 import org.testng.Assert;
 
 import java.util.regex.Matcher;
@@ -17,12 +18,14 @@ public class BSPBloginTest {
     private final String OTP_PAGE_URL = "https://idemo.bspb.ru/auth/otp?authOptionId=SMS%3A10005";
 
     @Допустим("Пользователь заходит на сайт bspb.ru")
+    @Step
     public void goToTargetPage() {
 
         Selenide.open(URL);
     }
 
     @Допустим("Пользователь вводит логин {string} и пароль {string}")
+    @Step
     public void inputUserLoginAndUserPassword(String string1, String string2) {
         $(byName("username")).clear();
         $(byName("username")).setValue(string1);
@@ -32,6 +35,7 @@ public class BSPBloginTest {
     }
 
     @Допустим("Пользователь попадает на страницу ввода одноразового пароля")
+    @Step
     public void assertUserIsOnOneTimePasswordPage() {
 
         String currentUrl = com.codeborne.selenide.WebDriverRunner.url();
@@ -39,6 +43,7 @@ public class BSPBloginTest {
     }
 
     @Допустим("Пользователь вводит одноразовый пароль {string}")
+    @Step
     public void inputOneTimePassword(String string) {
 
         $(byId("otp-code")).clear();
@@ -47,6 +52,7 @@ public class BSPBloginTest {
     }
 
     @Допустим("Пользователь попадает в личный кабинет")
+    @Step
     public void assertUSerIsInPersonalCabinet() {
 
         $(byXpath("//title[contains(text(), \"Интернет банк\")]")).isDisplayed();
@@ -54,16 +60,19 @@ public class BSPBloginTest {
     }
 
     @Допустим("Пользователь нажимает кнопку {string}")
+    @Step
     public void pressOverviewButton(String string) {
         $(byText(string)).click();
     }
 
     @Допустим("Пользователь видит надпись {string}")
+    @Step
     public void checkIfSignIsPresent(String string) {
         $(byXpath("//div[@id = \"header-container\"]//span[@class = \"text\"]")).shouldHave(text(string));
     }
 
     @Допустим("Пользователь видит сумму в формате 1 234 567.89 Р")
+    @Step
     public void checkAmountFormat() {
         Pattern pat = Pattern.compile("[1-9]\\s[0-9]{3}\\s[0-9]{3}\\.[0-9]{2}\\s₽");
         Matcher mat = pat.matcher($(byXpath("//div[@id=\"header-container\"]//span[@class=\"amount\"]")).getText());
@@ -71,11 +80,13 @@ public class BSPBloginTest {
     }
 
     @Допустим("Пользователь наводит курсором на сумму")
+    @Step
     public void hoverOverAmount() {
         $(byXpath("//div[@id=\"header-container\"]//span[@class=\"amount\"]")).hover();
     }
 
     @Допустим("Пользователь видит надпись Моих средств и сумму в формате 1 234 567.89 Р")
+    @Step
     public void checkMyBalanceFormat() {
         String s = $(byXpath("//div[@id=\"header-container\"]//small[@class=\"my-assets\"]")).getText();
         Pattern pat = Pattern.compile("Моих\\sсредств\\s[1-9]\\s[0-9]{3}\\s[0-9]{3}\\.[0-9]{2}\\s₽");

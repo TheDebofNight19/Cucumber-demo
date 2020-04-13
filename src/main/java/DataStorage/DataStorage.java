@@ -16,8 +16,8 @@ public class DataStorage {
     private String manufacturer;
 
     /**
-     * Метод, который парсит текст с кнопки "Показать <n> предложений" и сохраняет число в String,
-     * т.к. кол-во объявлений на кнопке обновляется динамически
+     * Метод, который парсит текст с кнопки "Показать <n> предложений" и "достает"
+     * оттуда число
      */
     public static String getQuantity(String string){
         String offers = null;
@@ -27,13 +27,6 @@ public class DataStorage {
             offers = m.group();
         }
         return offers;
-    }
-
-    public static void closePopUp(){
-        if($(byXpath("//body[@class='react-page body_controller_index']")).isDisplayed()){
-            $(byXpath("//span[text()='Понятно, спасибо']")).click();
-            Selenide.switchTo().parentFrame();
-        }
     }
 
 
