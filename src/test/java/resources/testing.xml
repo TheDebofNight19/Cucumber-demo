@@ -4,7 +4,6 @@
     <test name="Cucumber-test">
         <classes>
             <class name ="com.github.TheDebofNight19.RunCucumberTest"/>
-            <class name ="cucumber.StepDefenition.BSPBloginTest"/>
         </classes>
     </test>
 

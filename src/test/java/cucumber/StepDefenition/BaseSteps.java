@@ -4,7 +4,9 @@ import Pages.sberbank.BasePage;
 import Pages.sberbank.DepositControl;
 import Pages.sberbank.DepositsPage;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import io.cucumber.java.Before;
 import io.cucumber.java.ru.Допустим;
 import io.cucumber.java.ru.Если;
 import io.cucumber.java.ru.Ктомуже;
@@ -13,7 +15,6 @@ import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-
 import java.util.List;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -26,7 +27,10 @@ public class BaseSteps {
     DepositsPage depositsPage = new DepositsPage();
     DepositControl depositControl = new DepositControl();
 
+
+
     private static final Logger LOG = LoggerFactory.getLogger(BaseSteps.class);
+
 
 
     @Допустим("Пользователь переходит по ссылке {string}")

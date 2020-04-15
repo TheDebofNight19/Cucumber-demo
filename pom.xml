@@ -84,8 +84,6 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-
-
   <build>
     <plugins>
       <plugin>
@@ -96,9 +94,11 @@
           <systemPropertyVariables>
             <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
           </systemPropertyVariables>
+          <!--suppress UnresolvedMavenProperty -->
           <argLine>
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
             -Dcucumber.options="--plugin io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"
+            -Dcucumber.options="--add-plugin resources.plugin.GlobalHook"
             -Dcucumber.filter.tags="${tag}"
           </argLine>
           <suiteXmlFiles>src/test/java/resources/${suite}</suiteXmlFiles>
@@ -122,6 +122,10 @@
         </configuration>
       </plugin>
     </plugins>
-
+    <resources>
+      <resource>
+        <directory>src/test/java/resources</directory>
+      </resource>
+    </resources>
   </build>
 </project>
