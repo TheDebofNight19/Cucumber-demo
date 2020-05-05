@@ -2,7 +2,6 @@ package resources.plugin;
 
 
 import com.codeborne.selenide.Configuration;
-import io.cucumber.java.Before;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import resources.config.ConfigPropertyReader;
